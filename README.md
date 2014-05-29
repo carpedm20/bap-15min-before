@@ -7,7 +7,7 @@
 
 This is a python code for UNIST Bap bot.
 
-This is a program that uploads restaurant menu for UNIST.
+This is a program that uploads cafeteria menu for UNIST.
 
 
 ## Links ##
