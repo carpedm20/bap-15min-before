@@ -22,4 +22,10 @@ Copyright (c) 2014 Kim Tae Hoon
 
 ## Screenshots ##
 
+* 2014-05-30
+
+![alt_tag](http://3.bp.blogspot.com/-d_n-ZHwJbCc/U4iPRMsulWI/AAAAAAAAD10/Vj08eQniBR0/s1600/screenshot2.png)
+
+* 2014-05-29
+
 ![alt_tag](http://3.bp.blogspot.com/-IteHg0bdy6k/U4cjcA2ObTI/AAAAAAAAD04/Gbj8Zbu60uY/s1600/screenshot.png)

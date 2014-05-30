@@ -81,8 +81,8 @@ TEMPLATE_FILE = os.path.join(BASE_DIR, 'bap15min_jinja.html')
 
 template = templateEnv.get_template( TEMPLATE_FILE )
 
-#while True:
-for i in range(3):
+while True:
+#for i in range(3):
   try:
     date = u'%s월 %s일' % (datetime.now().month, datetime.now().day)
 
@@ -100,8 +100,8 @@ for i in range(3):
     target_min = bap_time[bap_index][1]
     target_section = bap_time[bap_index][2]
 
-    #if hour is target_hour and minute is target_min:
-    if True:
+    if hour is target_hour and minute is target_min:
+    #if True:
         bap_index = (bap_index + 1) % len(bap_time)
 
         payload = {'udid': udid,
