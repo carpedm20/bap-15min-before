@@ -63,7 +63,7 @@ def get_app_access():
 
     return app_access
 
-bap_time = [[7, 30], [11, 30], [17, 30]]
+bap_time = [[7, 30, 'A'], [11, 30, 'B'], [17, 30, 'C']]
 bap_index = 0
 
 while True:
@@ -71,7 +71,11 @@ while True:
     hour = datetime.now().hour
     minute = datetime.now().minute
 
-    if hour is bap_time[bap_index][0] and minute is bap_time[bap_index][1]:
+    target_hour = bap_time[bap_index][0]
+    target_min = bap_time[bap_index][1]
+    target_section = bap_time[bap_index][2]
+
+    if hour is target_hour and minute is target_min:
         bap_index = (bap_index + 1) % len(bap_time)
 
         payload = {'udid': udid,
@@ -85,17 +89,28 @@ while True:
 
         for shop in j['shopList']:
             try:
-                location = shop['locName']
+                location = shop['name'] + ' - ' + shop['locName']
                 
-                main = shop['foodList'][0]['mainFood']
-                others = shop['foodList'][0]['foods'].split(',')
+                main = []
+                others = []
 
-                others = ', '.join(others)
+                for i in j['shopList'][0]['foodList']:
+                    if i['section'] == target_section:
+                        main.append(i['mainFood'])
+                        others.append(', '.join(i['foods'].split(',')))
 
-                food_format = '[%s]\r\n- %s\r\n- %s' % (location, main, others)
+                food_format = '[ %s ]\r\n' % location
+
+                for i, m in enumerate(main):
+                    food_format += '* %s *\r\n- %s\r\n\r\n' % (m, others[i])
+
+                food_format = food_format[:-3]
+
                 food_list.append(food_format.encode('utf-8'))
-            except:
-                continue
+            except Exception as e:
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                print(exc_type, fname, exc_tb.tb_lineno)
 
         message = '\r\n\r\n'.join(food_list)
 
