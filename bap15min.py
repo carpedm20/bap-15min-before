@@ -70,8 +70,8 @@ def get_app_access():
 
     return app_access
 
-bap_time = [[7, 30, 'A'], [11, 30, 'B'], [17, 30, 'C']]
-bap_index = 0
+bap_time = [[7, 00, 'A'], [11, 20, 'B'], [17, 00, 'C']]
+bap_index = 2
 
 templateLoader = jinja2.FileSystemLoader( searchpath="/" )
 templateEnv = jinja2.Environment( loader=templateLoader )
@@ -83,6 +83,7 @@ template = templateEnv.get_template( TEMPLATE_FILE )
 
 while True:
 #for i in range(3):
+#if True:
   try:
     date = u'%s월 %s일' % (datetime.now().month, datetime.now().day)
 
@@ -160,7 +161,7 @@ while True:
         file_name = 'screenshot.png'
 
         browser = webdriver.Firefox()
-        if target_section == 'B':
+        if len(menus) > 4:
             browser.set_window_size(1000,1000)
         browser.get('http://hexa.perl.sh/~carpedm30/bap15min.html')
         browser.save_screenshot(file_name)
