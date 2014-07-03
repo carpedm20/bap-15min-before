@@ -70,8 +70,8 @@ def get_app_access():
 
     return app_access
 
-bap_time = [[7, 00, 'A'], [11, 20, 'B'], [17, 00, 'C']]
-bap_index = 2
+bap_time = [[7, 00, 'A'], [11, 00, 'B'], [17, 00, 'C']]
+bap_index = 0
 
 templateLoader = jinja2.FileSystemLoader( searchpath="/" )
 templateEnv = jinja2.Environment( loader=templateLoader )
@@ -115,6 +115,8 @@ while True:
         food_list = []
         menus = []
 
+        max_main_length = 0
+
         for shop in j['shopList']:
             try:
                 name = shop['name']
@@ -129,6 +131,9 @@ while True:
                         others.append(i['foods'].split(','))
 
                         print main[0]
+
+                if len(main) > max_main_length:
+                    max_main_length = len(main)
 
                 max_length = 0
                 for other in others:
@@ -161,7 +166,9 @@ while True:
         file_name = 'screenshot.png'
 
         browser = webdriver.Firefox()
-        if len(menus) > 4:
+        if max_main_length == 0:
+            continue
+        elif max_main_length > 2:
             browser.set_window_size(1000,1000)
         browser.get('http://hexa.perl.sh/~carpedm30/bap15min.html')
         browser.save_screenshot(file_name)
@@ -172,7 +179,7 @@ while True:
         content = '제작자 : 김태훈(carpedm20)'
 
         graph = facebook.GraphAPI(app_access)
-        #graph.put_wall_post(content)
+        #graph.put_wall_post(content) <- old version
 
         graph.put_photo(open(file_name), content)
 
